@@ -11,7 +11,7 @@ exports.createUser = (user) => {
       source: user.source,
       avatarUrl: user.avatarUrl,
       districtCode: user.districtCode,
-      shopnameid: user.shopnameid,
+    //   shopnameid: user.shopnameid,
     })
       .then((user) => {
         // console.log(user);

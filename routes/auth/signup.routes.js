@@ -1,6 +1,14 @@
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
-
+const jwtsecret = "123";
+const { OAuth2Client } = require("google-auth-library");
+const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  SESSION_SECRET,
+} = require("../../config/env");
+const jwt = require("jsonwebtoken");
+const googleOAuthClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 const User = require("../../dbFunctions/user");
 
 exports.signupwemail = (req, res) => {
@@ -12,8 +20,8 @@ exports.signupwemail = (req, res) => {
     email: req.body.email,
     password: hash,
     source: "emailAndPassword",
-    districtCode: req.body.districtCode,
-    shopnameid: req.body.shopnameid,
+    // districtCode: req.body.districtCode,
+    // shopnameid: req.body.shopnameid,
   };
 
   console.log(user);
@@ -36,4 +44,79 @@ exports.signupwemail = (req, res) => {
       //   console.log(err.errors[0].message); //23505
       //   console.log(err[]); //23505
     });
+};
+
+exports.signupwegoogle = async (req, res) => {
+  console.log(req.body);
+  console.log("google auth");
+
+  try {
+    let ticket = await googleOAuthClient.verifyIdToken({
+      idToken: req.body.tokenId,
+    });
+
+    console.log(ticket);
+    let user = {
+      name: ticket.payload.name,
+      email: ticket.payload.email,
+      source: "googleAuth",
+      avatarUrl: ticket.payload.picture,
+      // shopnameid: req.body.shopnameid,
+    };
+
+    //   let user = {
+    //     name: req.body.name,
+    //     email: req.body.email,
+    //     source: "google",
+    //     districtCode: req.body.districtCode,
+    //     shopnameid: req.body.shopnameid,
+    //   };
+
+    console.log(user);
+    User.createUser(user)
+      .then((user) => {
+        console.log(user);
+        let token = jwt.sign(
+          {
+            email: user.email,
+            id: user.id,
+          },
+          jwtsecret,
+          { expiresIn: "600m" }
+        );
+
+        res.status(200).json({ success: true, token: token });
+      })
+      .catch((err) => {
+        console.log(err);
+        //   console.log(err.original.code);
+        if (err.original.code == 23505) {
+          User.findUserByEmail(user.email, ["email", "id"])
+            .then((user) => {
+              console.log(user);
+              let token = jwt.sign(
+                {
+                  email: user.email,
+                  id: user.id,
+                },
+                jwtsecret,
+                { expiresIn: "600m" }
+              );
+
+              res.status(200).json({ success: true, token: token });
+            })
+            .catch((err) => {
+              console.log(err);
+              let payload = { success: false, msg: err.message };
+              res.status(400).json(payload);
+            });
+        } else {
+          let payload = { success: false, msg: err.message };
+          res.status(400).json(payload);
+        }
+      });
+  } catch (error) {
+    let payload = { success: false, msg: err.message };
+    res.status(400).json(payload);
+  }
 };

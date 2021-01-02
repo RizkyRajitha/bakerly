@@ -13,7 +13,7 @@ module.exports = (sequalize, Sequalize) => {
     active: { type: Sequalize.BOOLEAN, defaultValue: true },
     source: { type: Sequalize.STRING },
     avatarUrl: { type: Sequalize.STRING },
-    shopnameid: { type: Sequalize.STRING, allowNull: false, unique: true },
+    // shopnameid: { type: Sequalize.STRING, allowNull: false, unique: true },
   });
 
   return User;
