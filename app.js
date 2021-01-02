@@ -14,7 +14,7 @@ const app = express();
 
 const db = require("./models");
 
-// const itenRoutes = require("./routes/item.route");
+const userdb = require("./dbFunctions/user");
 
 app.use(cors());
 // parse requests of content-type - application/json
@@ -33,7 +33,7 @@ app.use("/auth", require("./routes/auth/signup.router")); //dont add jwt middlew
 // app.use("/reg", require("./routes/register/register.router")); //dont add jwt middleware
 
 app.get("/findall", async (req, res) => {
-  let users = await userRoutes.findAllUsersWithDistrict();
+  let users = await userdb.findAllUsersWithDistrict();
   res.json(users);
 });
 
