@@ -54,6 +54,8 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 db.User = require("./user.model.js")(sequelize, Sequelize);
 db.District = require("./districts.model")(sequelize, Sequelize);
+db.Address = require("./address.model")(sequelize, Sequelize);
+db.ShopData = require("./shopdata.model")(sequelize, Sequelize);
 
 db.District.hasMany(db.User, { as: "user" });
 
@@ -61,6 +63,21 @@ db.User.belongsTo(db.District, {
   as: "district",
   foreingKey: "districtCode",
 });
+
+db.User.hasMany(db.ShopData, { as: "shopdata" });
+
+db.ShopData.belongsTo(db.User, {
+  as: "shopData",
+  foreingKey: "userId",
+});
+
+// db.Address.hasOne(db.ShopData, { as: "address", type: Sequelize.UUID });
+
+// db.ShopData.belongsTo(db.Address, {
+//   // type: Sequelize.UUID,
+//   as: "address",
+//   foreingKey: "addressId",
+// });
 
 // ALTER TABLE "districts" ADD FOREIGN KEY ("code") REFERENCES "users" ("district_code");
 

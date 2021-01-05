@@ -25,7 +25,6 @@ exports.loginwemail = async (req, res) => {
       );
 
       res.status(200).json({ success: true, token: token });
-      //   res.json(user);
     } else {
       res.status(401).json({ success: false, msg: "invalid_password" });
     }

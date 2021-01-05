@@ -12,6 +12,8 @@ const googleOAuthClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 const User = require("../../dbFunctions/user");
 
 exports.signupwemail = (req, res) => {
+  console.log(req.body);
+
   let salt = bcrypt.genSaltSync(saltRounds);
   let hash = bcrypt.hashSync(req.body.password, salt);
 
@@ -20,8 +22,6 @@ exports.signupwemail = (req, res) => {
     email: req.body.email,
     password: hash,
     source: "emailAndPassword",
-    // districtCode: req.body.districtCode,
-    // shopnameid: req.body.shopnameid,
   };
 
   console.log(user);
@@ -33,16 +33,13 @@ exports.signupwemail = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      //   console.log(err.original.code);
       if (err.original.code == 23505) {
-        let payload = { success: false, msg: err.errors[0].message };
+        let payload = { success: false, msg: "duplicate_user" };
         res.status(400).json(payload);
       } else {
         let payload = { success: false, msg: err.message };
         res.status(400).json(payload);
       }
-      //   console.log(err.errors[0].message); //23505
-      //   console.log(err[]); //23505
     });
 };
 
@@ -61,17 +58,7 @@ exports.signupwegoogle = async (req, res) => {
       email: ticket.payload.email,
       source: "googleAuth",
       avatarUrl: ticket.payload.picture,
-      // shopnameid: req.body.shopnameid,
     };
-
-    //   let user = {
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     source: "google",
-    //     districtCode: req.body.districtCode,
-    //     shopnameid: req.body.shopnameid,
-    //   };
-
     console.log(user);
     User.createUser(user)
       .then((user) => {
@@ -89,7 +76,6 @@ exports.signupwegoogle = async (req, res) => {
       })
       .catch((err) => {
         console.log(err);
-        //   console.log(err.original.code);
         if (err.original.code == 23505) {
           User.findUserByEmail(user.email, ["email", "id"])
             .then((user) => {
