@@ -34,7 +34,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     idle: dbConfig.pool.idle,
   },
 });
-
 // fs.readdirSync(__dirname)
 //   .filter((file) => {
 //     return (
