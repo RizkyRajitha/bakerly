@@ -1,4 +1,5 @@
 const Shop = require("../../dbFunctions/shopdata");
+const Districts = require("../../dbFunctions/districts");
 
 exports.addShop = async (req, res) => {
   console.log(req.id);
@@ -12,7 +13,7 @@ exports.addShop = async (req, res) => {
     //   res.status(400).json({ success: false, msg: "you cannot have 2 shops" });
     //   return;
     // }
-    
+
     await Shop.createShopWithAddress(req.body, req.id);
 
     let shop = await Shop.findShopByUserId(req.id);
@@ -35,6 +36,17 @@ exports.addShop = async (req, res) => {
 exports.userShop = async (req, res) => {
   try {
     let shopData = await Shop.findShopByUserId(req.id);
+
+    res.json({ success: true, data: shopData });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};
+
+exports.allDistrics = async (req, res) => {
+  try {
+    let shopData = await Districts.readAllDistrics();
 
     res.json({ success: true, data: shopData });
   } catch (error) {

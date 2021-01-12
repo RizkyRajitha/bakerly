@@ -11,18 +11,19 @@ exports.createShopWithAddress = async (shop, userId) => {
       // let userShop =
       let address = await Address.create(
         {
-          addressl1: shop.address.addressl1,
-          addressl2: shop.address.addressl2,
-          city: shop.address.city,
-          postalcode: shop.address.postalcode,
-          districtCode: shop.address.districtCode,
+          addressl1: shop.addressl1,
+          addressl2: shop.addressl2,
+          city: shop.city,
+          postalcode: shop.postalcode,
+          districtCode: shop.districtCode,
         },
         { transaction: t }
       );
+
       let userShop = await Shop.create(
         {
           userId: userId,
-          name: shop.name,
+          // name: shop.name,
           shopname: shop.shopname,
           shopid: shop.shopid,
           email: shop.email,
@@ -55,6 +56,35 @@ exports.findShopByUserId = (userId) => {
     Shop.findAll({
       where: {
         userId: userId,
+      },
+      include: [
+        {
+          model: Address,
+          as: "address",
+          include: [{ model: District, as: "district" }],
+        },
+      ],
+      // include: [{ model: Address, as: "address", nested: true }],
+      // include: { all: true },
+    })
+      .then((shop) => {
+        console.log(shop);
+        // console.log(shop.address.getDistrict())
+        resolve(shop);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+};
+
+
+exports.findShopByShopId = (shopId) => {
+  return new Promise((resolve, reject) => {
+    Shop.findAll({
+      where: {
+        shopid: shopId,
       },
       include: [
         {
