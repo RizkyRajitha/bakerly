@@ -28,4 +28,7 @@ Users.init(
   }
 );
 
+// Users.hasMany(Course);
+// console.log(Users.associations);
+
 module.exports.Users = Users;

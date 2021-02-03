@@ -5,16 +5,16 @@ class Course extends Model {}
 Course.init(
   {
     id: {
-      type: Sequalize.UUID,
-      defaultValue: Sequalize.UUIDV4,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       unique: true,
       primaryKey: true,
     },
-    name: { type: Sequalize.STRING },
-    desicription: { type: Sequalize.STRING },
-    price: { type: Sequalize.INTEGER },
-    active: { type: Sequalize.BOOLEAN, defaultValue: true },
+    name: { type: DataTypes.STRING },
+    desicription: { type: DataTypes.STRING },
+    price: { type: DataTypes.INTEGER },
+    active: { type: DataTypes.BOOLEAN, defaultValue: true },
     createdBy: {
       allowNull: false,
       references: {
@@ -25,9 +25,16 @@ Course.init(
     },
   },
   {
-    modelName: "course",
+    modelName: "courses",
     sequelize,
   }
 );
+// Course.associate = (models) => {
+//   console.log("ass");
+//   console.log(models);
+//   Course.belongsTo(models.users, { as: "playlist" });
+// };
+// Course.belongsTo(Users, { as: "asa", foreignKey: "createdBy" });
+// console.log(Course.associations);
 
 module.exports.Course = Course;

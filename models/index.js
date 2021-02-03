@@ -1,3 +1,26 @@
+const Users = require("./user.model").Users;
+const Course = require("./course.model").Course;
+
+//
+Course.belongsTo(Users, {
+  //   as: "createdUSer",
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+  //   foreignKeyConstraint: false,
+});
+Users.hasMany(Course, {
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+});
+console.log(Course.associations);
+console.log(Users.associations);
+
+module.exports = { Users, Course };
+
 // const Sequelize = require("sequelize");
 // const { DataTypes } = require("sequelize");
 // const dbConfig = require("../config/db.config");
@@ -108,4 +131,3 @@
 // db.Sequelize = Sequelize;
 
 // module.exports = db;
-

@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/auth", require("./routes/auth/login.router")); //dont add jwt middleware
 app.use("/auth", require("./routes/auth/signup.router")); //dont add jwt middleware
 app.use("/api/user", jwtAuthMiddleware, require("./routes/user/user.router")); // use jwt middleware
-app.use("/api/shop", jwtAuthMiddleware, require("./routes/shop/shop.router")); // use jwt middleware
+app.use("/api/course", jwtAuthMiddleware, require("./routes/course/course.router")); // use jwt middleware
 app.use("/public/api/shop", require("./routes/public/shop.router")); // use jwt middleware
 // app.use("/reg", require("./routes/register/register.router")); //dont add jwt middleware
 
