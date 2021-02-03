@@ -1,5 +1,9 @@
-module.exports = (sequalize, Sequalize) => {
-  const Course = sequalize.define("course", {
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("./connection").sequelize;
+
+class Course extends Model {}
+Course.init(
+  {
     id: {
       type: Sequalize.UUID,
       defaultValue: Sequalize.UUIDV4,
@@ -11,18 +15,19 @@ module.exports = (sequalize, Sequalize) => {
     desicription: { type: Sequalize.STRING },
     price: { type: Sequalize.INTEGER },
     active: { type: Sequalize.BOOLEAN, defaultValue: true },
-  });
+    createdBy: {
+      allowNull: false,
+      references: {
+        key: "id",
+        model: "users",
+      },
+      type: DataTypes.UUID,
+    },
+  },
+  {
+    modelName: "course",
+    sequelize,
+  }
+);
 
-  return Course;
-};
-
-/*
-    "id" int PRIMARY KEY,
-  "name" varchar,
-  "desicription" varchar,
-  "created_by" int NOT NULL,
-  "price" int,
-  "active" varchar*/
-
-
-
+module.exports.Course = Course;

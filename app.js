@@ -6,7 +6,7 @@ const app = express();
 
 // const db = require("./models");
 
-// const userdb = require("./dbFunctions/user");
+const userdb = require("./dbFunctions/user");
 // im
 const { jwtAuthMiddleware } = require("./middleware/jwtauth");
 
@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/findall", async (req, res) => {
-  let users = await userdb.findAllUsersWithDistrict();
+  let users = await userdb.findAllUsers()
   res.json(users);
 });
 

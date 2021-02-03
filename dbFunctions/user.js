@@ -9,7 +9,7 @@ exports.createUser = (user) => {
       password: user.password,
       source: user.source,
       avatarUrl: user.avatarUrl,
-      districtCode: user.districtCode,
+      // districtCode: user.districtCode,
       //   shopnameid: user.shopnameid,
     })
       .then((user) => {
