@@ -10,6 +10,7 @@ Course.belongsTo(Users, {
   },
   //   foreignKeyConstraint: false,
 });
+// Users.hasMany(Course);
 Users.hasMany(Course, {
   foreignKey: {
     name: "createdUser",
