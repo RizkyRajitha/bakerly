@@ -1,20 +1,31 @@
-module.exports = (sequalize, Sequalize) => {
-  const User = sequalize.define("user", {
+const { Model, DataTypes } = require("sequelize");
+// import sequelize from "./connection";
+const sequelize = require("./connection").sequelize;
+
+class Users extends Model {}
+Users.init(
+  {
     id: {
-      type: Sequalize.UUID,
-      defaultValue: Sequalize.UUIDV4,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       unique: true,
       primaryKey: true,
     },
-    name: { type: Sequalize.STRING },
-    email: { type: Sequalize.STRING, allowNull: false, unique: true },
-    password: { type: Sequalize.STRING, allowNull: true },
-    active: { type: Sequalize.BOOLEAN, defaultValue: true },
-    source: { type: Sequalize.STRING },
-    avatarUrl: { type: Sequalize.STRING },
-    // shopnameid: { type: Sequalize.STRING, allowNull: false, unique: true },
-  });
+    name: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    password: { type: DataTypes.STRING, allowNull: true },
+    active: { type: DataTypes.BOOLEAN, defaultValue: true },
+    source: { type: DataTypes.STRING },
+    avatarUrl: { type: DataTypes.STRING },
+  },
+  {
+    rawAttributes: {
+      exclude: ["password"],
+    },
+    modelName: "users",
+    sequelize,
+  }
+);
 
-  return User;
-};
+module.exports.Users = Users;

@@ -1,5 +1,5 @@
-const db = require("../models");
-const User = db.User;
+const User = require("../models/user.model").Users;
+// const User = db.User;
 
 exports.createUser = (user) => {
   return new Promise((resolve, reject) => {

@@ -1,20 +1,23 @@
-let data = [
-  { name: "Jaffna", province: "Northern" },
-  { name: "Kilinochchi", province: "Northern" },
-  { name: "Mannar", province: "Northern" },
-  { name: "Vavuniya", province: "Northern" },
-  { name: "Puttalam", province: "NorthWestern" },
-  { name: "Kurunegala", province: "NorthWestern" },
-  { name: "Kandy", province: "Central" },
-  { name: "Nuwara Eliya", province: "Central" },
-];
+const db = require("./dbFunctions/course");
 
-const db = require("./dbFunctions/districts");
+db.createCourse({
+  name: "course.name",
+  desicription: "course.desicription",
+  price: 10,
+})
+  .then((resolve) => {
+    console.log(resolve);
+  })
+  .catch((reject) => {
+    console.log(reject);
+  });
 
-data.forEach(async (element) => {
-  let data = await db.createDistric(element);
-  console.log(data);
-});
+// data.forEach(async (element) => {
+
+//   let data = await db.createDistric(element);
+//   console.log(data);
+// });
+
 // /**
 //  * merchant_id=1216552&order_id=ItemNo12345&payment_id=320025116694&payhere_amount=1000000.00&payhere_currency=LKR&status_code=2&md5sig=4F15D71C48B297C75A67EEB70AB4142F&custom_1=&custom_2=&status_message=Successfully+completed+the+payment.&method=TEST&card_holder_name=as&recurring=0
 //  */
@@ -39,7 +42,7 @@ data.forEach(async (element) => {
 // var value = 'test';
 
 // var result = MD5(value);
- 
+
 // let sec = new String(MD5('48dHoa4yLwb4eZDG9HmeyP8ghnrXwx2Nn49aLsJwTzST'))
 // console.log('sec',sec)
 // let md5 = "4F15D71C48B297C75A67EEB70AB4142F";

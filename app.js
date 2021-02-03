@@ -4,9 +4,9 @@ const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-const db = require("./models");
+// const db = require("./models");
 
-const userdb = require("./dbFunctions/user");
+// const userdb = require("./dbFunctions/user");
 // im
 const { jwtAuthMiddleware } = require("./middleware/jwtauth");
 
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-db.sequelize.sync({ alter: true });
+// db.sequelize.sync({ alter: true });
 
 // function jwtAuth(req, res, next) {
 //   console.log("jwtAuth middleware");

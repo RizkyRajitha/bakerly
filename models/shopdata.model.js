@@ -22,7 +22,6 @@ module.exports = (sequalize, Sequalize) => {
     avatarUrl: { type: Sequalize.STRING },
     // shopnameid: { type: Sequalize.STRING, allowNull: false, unique: true },
   });
-
   return ShopData;
 };
 
