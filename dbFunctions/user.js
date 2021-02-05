@@ -9,6 +9,7 @@ exports.createUser = (user) => {
       password: user.password,
       source: user.source,
       avatarUrl: user.avatarUrl,
+      userType:'customer'
       // districtCode: user.districtCode,
       //   shopnameid: user.shopnameid,
     })

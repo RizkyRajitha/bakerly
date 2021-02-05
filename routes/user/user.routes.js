@@ -2,19 +2,19 @@ const User = require("../../dbFunctions/user");
 const Shop = require("../../dbFunctions/shopdata");
 
 exports.userDashbaord = async (req, res) => {
-  console.log(req.id);
+  console.log(res.locals.id);
   console.log("user dashbaord");
   try {
-    let user = await User.findUserById(req.id, [
+    let user = await User.findUserById(res.locals.id, [
       "name",
       "id",
       "avatarUrl",
       "createdAt",
     ]);
 
-    let shop = await Shop.findShopByUserId(req.id);
+    let shop = await Shop.findShopByUserId(res.locals.id);
 
-    // let shop = await Shop.findShopByUserId(req.id);
+    // let shop = await Shop.findShopByUserId(res.locals.id);
 
     console.log(user);
 

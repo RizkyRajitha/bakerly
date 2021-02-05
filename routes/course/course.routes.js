@@ -1,23 +1,23 @@
 const Course = require("../../dbFunctions/course");
 
 exports.createCourse = async (req, res) => {
-  console.log(req.id);
+  console.log(res.locals.id);
   console.log(req.body);
 
   console.log("create Course");
   try {
-    // let existingShop = Shop.findShopByUserId(req.id);
+    // let existingShop = Shop.findShopByUserId(res.locals.id);
 
     // if (existingShop) {
     //   res.status(400).json({ success: false, msg: "you cannot have 2 shops" });
     //   return;
     // }
-    let courseData = { ...req.body, createdBy: req.id };
+    let courseData = { ...req.body, createdBy: res.locals.id };
     console.log(courseData);
     await Course.createCourse(courseData);
-    // createShopWithAddress(req.body, req.id);
+    // createShopWithAddress(req.body, res.locals.id);
 
-    // let shop = await Shop.findShopByUserId(req.id);
+    // let shop = await Shop.findShopByUserId(res.locals.id);
     // shop.
 
     // console.log(shop);

@@ -18,6 +18,7 @@ Users.init(
     active: { type: DataTypes.BOOLEAN, defaultValue: true },
     source: { type: DataTypes.STRING },
     avatarUrl: { type: DataTypes.STRING },
+    userType: { type: DataTypes.STRING ,allowNull: false},
   },
   {
     rawAttributes: {

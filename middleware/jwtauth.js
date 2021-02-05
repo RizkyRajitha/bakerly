@@ -14,7 +14,7 @@ const jwtAuthMiddleware = (req, res, next) => {
           .status(401)
           .json({ error: true, message: "unauthorized_access" });
       }
-      req.id = decoded.id;
+      res.locals.id = decoded.id;
       next();
       //   var ipaddr =
       //     req.headers["x-forwarded-for"] || req.connection.remoteAddress;

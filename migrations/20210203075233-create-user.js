@@ -14,6 +14,7 @@ module.exports = {
       active: { type: Sequelize.BOOLEAN, defaultValue: true },
       source: { type: Sequelize.STRING },
       avatarUrl: { type: Sequelize.STRING },
+      userType: { type: Sequelize.STRING ,allowNull: false},
     });
   },
   down: async (queryInterface, Sequelize) => {

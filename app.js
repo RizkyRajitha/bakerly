@@ -1,31 +1,31 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const Sentry = require('@sentry/node');
-const Tracing = require("@sentry/tracing");
+// const Sentry = require('@sentry/node');
+// const Tracing = require("@sentry/tracing");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-Sentry.init({
-  dsn: "https://313ec29e40ac419fb69d3a9ba3189edb@o516292.ingest.sentry.io/5622667",
-  integrations: [
-    // enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
-    // enable Express.js middleware tracing
-    new Tracing.Integrations.Express({ app }),
-  ],
+// Sentry.init({
+//   dsn: "https://313ec29e40ac419fb69d3a9ba3189edb@o516292.ingest.sentry.io/5622667",
+//   integrations: [
+//     // enable HTTP calls tracing
+//     new Sentry.Integrations.Http({ tracing: true }),
+//     // enable Express.js middleware tracing
+//     new Tracing.Integrations.Express({ app }),
+//   ],
 
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-});
+//   // We recommend adjusting this value in production, or using tracesSampler
+//   // for finer control
+//   tracesSampleRate: 1.0,
+// });
 
 // RequestHandler creates a separate execution context using domains, so that every
 // transaction/span/breadcrumb is attached to its own Hub instance
-app.use(Sentry.Handlers.requestHandler());
+// app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
-app.use(Sentry.Handlers.tracingHandler());
+// app.use(Sentry.Handlers.tracingHandler());
 // const db = require("./models");
 
 const userdb = require("./dbFunctions/user");
@@ -35,19 +35,19 @@ const { jwtAuthMiddleware } = require("./middleware/jwtauth");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get("/debug-sentry", function mainHandler(req, res) {
-  throw new Error("My first Sentry error!");
-});
+// app.get("/debug-sentry", function mainHandler(req, res) {
+//   throw new Error("My first Sentry error!");
+// });
 
-app.use(Sentry.Handlers.errorHandler());
+// app.use(Sentry.Handlers.errorHandler());
 
-// Optional fallthrough error handler
-app.use(function onError(err, req, res, next) {
-  // The error id is attached to `res.sentry` to be returned
-  // and optionally displayed to the user for support.
-  res.statusCode = 500;
-  res.end(res.sentry + "\n");
-});
+// // Optional fallthrough error handler
+// app.use(function onError(err, req, res, next) {
+//   // The error id is attached to `res.sentry` to be returned
+//   // and optionally displayed to the user for support.
+//   res.statusCode = 500;
+//   res.end(res.sentry + "\n");
+// });
 // db.sequelize.sync({ alter: true });
 
 // function jwtAuth(req, res, next) {
