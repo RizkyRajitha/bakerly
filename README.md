@@ -34,7 +34,7 @@
 
    #### todo admin
 
-   1. `post` add new course
+   1. `post` add new course ✅
    2. `post` add lessons to a course
    3. `post` deactivate course
    4. `post` deactivate update
@@ -42,7 +42,7 @@
    6. `post` update update
    7. `get` view dashboard
    8. `get` view purchase history of users
-   9. `get` view user list
+   9. `get` view user list ✅
 
    #### todo admin coupon
 
@@ -51,8 +51,9 @@
    3. `post` update coupon
    4. `post` deactivate coupon
 
-1. q:create cupons to a specific course or flat rate discount
-2. q:create pending state when user is going to purchase a course 
+
+4. q:create cupons to a specific course or flat rate discount
+5. q:create pending state when user is going to purchase a course 
 
 
 

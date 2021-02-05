@@ -30,3 +30,13 @@ exports.userDashbaord = async (req, res) => {
     }
   }
 };
+
+exports.viewAllUsers = async (req, res) => {
+  try {
+    let userList = await User.findAllUsers();
+    console.log(userList)
+    res.status(200).json({ success: true, data: userList });
+  } catch (error) {
+    res.json({ success: false, msg: error.message });
+  }
+};

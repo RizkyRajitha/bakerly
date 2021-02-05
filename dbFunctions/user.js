@@ -9,7 +9,7 @@ exports.createUser = (user) => {
       password: user.password,
       source: user.source,
       avatarUrl: user.avatarUrl,
-      userType:'customer'
+      userType: "customer",
       // districtCode: user.districtCode,
       //   shopnameid: user.shopnameid,
     })
@@ -25,7 +25,7 @@ exports.createUser = (user) => {
 };
 
 exports.findAllUsers = () => {
-  return User.findAll({});
+  return User.findAll({attributes:{exclude:['password']}});
 };
 
 exports.findAllUsersWithDistrict = () => {

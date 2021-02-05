@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const roleRestrictMiddleware = require("../../middleware/roleRestrict")
   .roleRestrictMiddleware;
-
 const course = require("./course.routes");
 
 router.post(
