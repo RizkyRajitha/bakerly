@@ -1,17 +1,24 @@
-const db = require("./dbFunctions/course");
+// const db = require("./dbFunctions/course");
+const db = require("./dbFunctions/puchase");
 
-db.createCourse({
-  name: "course.name",
-  desicription: "course.desicription",
-  price: 10,
-  createdBy:1
-})
-  .then((resolve) => {
-    console.log(resolve);
-  })
-  .catch((reject) => {
-    console.log(reject);
-  });
+db.createPurchase({
+  purchasedBy: '681c333a-616e-494b-81e8-ff90502fb2b1',
+  courseId: '2e38f34f-ab02-4e4a-88f2-ebb5da2b8a64',
+  amount: 10
+});
+
+// db.createCourse({
+//   name: "course.name",
+//   desicription: "course.desicription",
+//   price: 10,
+//   createdBy:1
+// })
+//   .then((resolve) => {
+//     console.log(resolve);
+//   })
+//   .catch((reject) => {
+//     console.log(reject);
+//   });
 
 // data.forEach(async (element) => {
 

@@ -1,5 +1,6 @@
 const Users = require("./user.model").Users;
 const Course = require("./course.model").Course;
+const Purchase = require("./purchases.model").Purchases;
 
 //
 Course.belongsTo(Users, {
@@ -17,10 +18,25 @@ Users.hasMany(Course, {
     field: "createdBy",
   },
 });
+
+Purchase.belongsTo(Users, {
+  foreignKey: {
+    name: "purchasedUser",
+    field: "purchasedBy",
+  },
+});
+
+Users.hasMany(Purchase, {
+  foreignKey: {
+    name: "purchasedUser",
+    field: "purchasedBy",
+  },
+});
+
 console.log(Course.associations);
 console.log(Users.associations);
 
-module.exports = { Users, Course };
+module.exports = { Users, Course, Purchase };
 
 // const Sequelize = require("sequelize");
 // const { DataTypes } = require("sequelize");

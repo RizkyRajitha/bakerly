@@ -25,7 +25,11 @@ exports.createUser = (user) => {
 };
 
 exports.findAllUsers = () => {
-  return User.findAll({attributes:{exclude:['password']}});
+  return User.findAll({ attributes: { exclude: ["password"] } });
+};
+
+exports.findAllCustomers = () => {
+  return User.findAll({ where: { userType: "customer" } });
 };
 
 exports.findAllUsersWithDistrict = () => {

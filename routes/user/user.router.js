@@ -10,5 +10,15 @@ router.get(
   roleRestrictMiddleware(["admin"]),
   user.viewAllUsers
 );
+router.get(
+  "/getAllCustomers",
+  roleRestrictMiddleware(["admin"]),
+  user.viewAllCustomers
+);
+router.post(
+  "/purchaseCouse",
+  roleRestrictMiddleware(["customer"]),
+  user.purchaseCourse
+);
 
 module.exports = router;
