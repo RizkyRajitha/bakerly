@@ -1,8 +1,8 @@
 module.exports.development = {
   host: "localhost",
-  username: "postgres",
+  username: "backerly",
   password: "123",
-  database: "ultralegendpro",
+  database: "backerly",
   dialect: "postgres",
   pool: {
     max: 5,

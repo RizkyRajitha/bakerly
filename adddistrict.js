@@ -4,6 +4,7 @@ db.createCourse({
   name: "course.name",
   desicription: "course.desicription",
   price: 10,
+  createdBy:1
 })
   .then((resolve) => {
     console.log(resolve);

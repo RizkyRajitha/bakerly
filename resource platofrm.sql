@@ -9,13 +9,16 @@ CREATE TABLE "users" (
   "user_type" varchar
 );
 
-CREATE TABLE "course" (
-  "id" int PRIMARY KEY,
+CREATE TABLE "courses" (
+  "id" UUID PRIMARY KEY,
   "name" varchar,
   "desicription" varchar,
-  "created_by" int NOT NULL,
+  "createdBy" int NOT NULL,
   "price" int,
-  "active" varchar
+  "active" boolean,
+  "createdAt" DATE,
+  "updatedAt" DATE,
+  "deletedAt" DATE
 );
 
 CREATE TABLE "lesson" (
