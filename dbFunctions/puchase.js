@@ -20,3 +20,17 @@ exports.createPurchase = (purchase) => {
       });
   });
 };
+
+exports.findPurchaseByUserId = (purchasedBy) => {
+  return new Promise((resolve, reject) => {
+    Purchase.findAll({ where: { purchasedBy } })
+      .then((course) => {
+        console.log(course);
+        resolve(course);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+};

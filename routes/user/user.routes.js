@@ -74,3 +74,16 @@ exports.purchaseCourse = async (req, res) => {
     res.json({ success: false, msg: error.original.message });
   }
 };
+
+exports.getPurchasedCourses = async (req, res) => {
+  try {
+    const purchasedUserId = res.locals.id;
+    console.log(purchasedUserId);
+
+    let purchaseRecord = await Purchase.findPurchaseByUserId(purchasedUserId);
+    console.log(purchaseRecord);
+    res.status(200).json({ success: true, data: purchaseRecord });
+  } catch (error) {
+    res.json({ success: false, msg: error.original.message });
+  }
+};

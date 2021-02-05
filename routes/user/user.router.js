@@ -16,9 +16,16 @@ router.get(
   user.viewAllCustomers
 );
 router.post(
-  "/purchaseCouse",
+  "/purchaseCourse",
   roleRestrictMiddleware(["customer"]),
   user.purchaseCourse
 );
+router.get(
+    "/purchasedCourses",
+    roleRestrictMiddleware(["customer"]),
+    user.getPurchasedCourses
+  );
+
+
 
 module.exports = router;
