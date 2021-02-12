@@ -32,3 +32,16 @@ exports.allCourses = async (req, res) => {
     res.json({ success: false, msg: error.message });
   }
 };
+
+exports.deactivateCourses = async (req, res) => {
+  try {
+    let courseId = req.body.courseId;
+    console.log('deactivateCourses')
+    console.log(courseId);
+    let courses = await Course.deactivateCourse(courseId);
+    res.json({ success: true, data: courses });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};

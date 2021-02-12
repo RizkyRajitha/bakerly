@@ -79,3 +79,9 @@ exports.findAllCourses = () => {
     include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
   });
 };
+
+exports.deactivateCourse = (id) => {
+  return Course.findByPk(id).then(data=>{
+    data.update({active:false})
+  })
+};

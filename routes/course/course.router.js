@@ -5,14 +5,19 @@ const roleRestrictMiddleware = require("../../middleware/roleRestrict")
 const course = require("./course.routes");
 
 router.post(
-  "/createCourse",
+  "/createcourse",
   roleRestrictMiddleware(["admin"]),
   course.createCourse
 );
 router.get(
-  "/getAllCourses",
+  "/getallcourses",
   roleRestrictMiddleware(["admin"]),
   course.allCourses
+);
+router.post(
+  "/deactivatecourse",
+  roleRestrictMiddleware(["admin"]),
+  course.deactivateCourses
 );
 // router.get("/getdistrics", shop.allDistrics);
 
