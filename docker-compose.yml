@@ -1,0 +1,29 @@
+version: "3"
+services:
+  backerly-service:
+    build: "."
+    depends_on:
+      - backerly-service-db
+    environment:
+      - DB_URI=postgres://ultralegend:pro@localhost/ab?charset=UTF8
+      # - DATABASE=ab
+      # - DATANAME=ultralegend
+      # - DATAPASS=pro
+      # - DATAHOST=backerly-service-db
+    ports:
+      - 3001:3001
+
+  backerly-service-db:
+    environment:
+      - POSTGRES_DB=ab
+      - POSTGRES_USER=ultralegend
+      - POSTGRES_PASSWORD=pro
+    image: postgres:10-alpine
+    ports:
+      - 0.0.0.0:5432:5432
+  # classfeild-service:
+  # build: "./classfeild-service"
+  # depends_on:
+  # - classfeild-service-db
+  # volumes:
+  #     - ./classfeild-service:/opt/app
