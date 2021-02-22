@@ -14,6 +14,30 @@ router.get(
   roleRestrictMiddleware(["admin"]),
   lesson.getAllLessons
 );
+
+router.get(
+  "/deactivatelesson",
+  roleRestrictMiddleware(["admin"]),
+  lesson.deactivateLesson
+);
+
+router.get(
+  "/activatelesson",
+  roleRestrictMiddleware(["admin"]),
+  lesson.activateLesson
+);
+
+router.get(
+  "/publishlesson",
+  roleRestrictMiddleware(["admin"]),
+  lesson.publishLesson
+);
+router.get(
+  "/unpublishlesson",
+  roleRestrictMiddleware(["admin"]),
+  lesson.unpublishLesson
+);
+
 // router.post(
 //   "/deactivatelesson",
 //   roleRestrictMiddleware(["admin"]),

@@ -1,3 +1,4 @@
+/** @type {import("express").Request} */
 const Lesson = require("../../dbFunctions/lessons");
 
 exports.createLesson = async (req, res) => {
@@ -33,13 +34,52 @@ exports.getAllLessons = async (req, res) => {
   }
 };
 
-exports.deactivateCourses = async (req, res) => {
+exports.deactivateLesson = async (req, res) => {
   try {
-    let courseId = req.body.courseId;
-    console.log("deactivateCourses");
-    console.log(courseId);
-    let courses = await Course.deactivateCourse(courseId);
-    res.json({ success: true, data: courses });
+    let lessonId = req.body.lessonId;
+    console.log("deactivate Lesson");
+    console.log(lessonId);
+    let lesson = await Lesson.deactivateLesson(lessonId);
+    res.json({ success: true, data: lesson });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};
+
+exports.activateLesson = async (req, res) => {
+  try {
+    let lessonId = req.body.lessonId;
+    console.log("activate Lesson");
+    console.log(lessonId);
+    let lesson = await Lesson.activateLesson(lessonId);
+    res.json({ success: true, data: lesson });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};
+
+exports.publishLesson = async (req, res) => {
+  try {
+    let lessonId = req.body.lessonId;
+    console.log("publish Lesson");
+    console.log(lessonId);
+    let lesson = await Lesson.publishLesson(lessonId);
+    res.json({ success: true, data: lesson });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};
+
+exports.unpublishLesson = async (req, res) => {
+  try {
+    let lessonId = req.body.lessonId;
+    console.log("unpublish Lesson");
+    console.log(lessonId);
+    let lesson = await Lesson.unpublishLesson(lessonId);
+    res.json({ success: true, data: lesson });
   } catch (error) {
     console.log(error);
     res.json({ success: false, msg: error.message });

@@ -77,11 +77,26 @@ exports.findAllCourses = (attributes = null) => {
   // return Users.findAll({ include: ["courses"] });
   if (attributes) {
     return Course.findAll({
-      attributes: attributes,
+      attributes,
       // include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
     });
   } else {
     return Course.findAll({
+      include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
+    });
+  }
+};
+
+exports.findCourses = (where = null, attributes = null) => {
+  if (attributes) {
+    return Course.findAll({
+      attributes,
+      where,
+      // include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
+    });
+  } else {
+    return Course.findAll({
+      where,
       include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
     });
   }

@@ -33,6 +33,30 @@ exports.allCourses = async (req, res) => {
   }
 };
 
+exports.getCourses = async (req, res) => {
+  try {
+    console.log(req.query);
+
+    if (!req.query.hasOwnProperty("active")) {
+      res
+        .status(400)
+        .json({ success: false, msg: "invalid request set query type" });
+    }
+    let where = {
+      // published: req.query && req.query.published,
+      active: req.query.active,
+    };
+
+    console.log(where);
+
+    let courses = await Course.findCourses(where);
+    res.json({ success: true, data: courses });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};
+
 exports.courseList = async (req, res) => {
   try {
     let courses = await Course.findAllCourses(["id", "name"]);
