@@ -1,20 +1,20 @@
-const Course = require("../../dbFunctions/course");
+const Lesson = require("../../dbFunctions/lessons");
 
-exports.createCourse = async (req, res) => {
+exports.createLesson = async (req, res) => {
   console.log(res.locals.id);
   console.log(req.body);
 
-  console.log("create Course");
+  console.log("create Lesson");
   try {
-    let courseData = { ...req.body, createdBy: res.locals.id };
-    console.log(courseData);
-    await Course.createCourse(courseData);
+    let lessonData = { ...req.body, createdBy: res.locals.id };
+    console.log(lessonData);
+    await Lesson.createLesson(lessonData);
 
-    res.status(200).json({ success: true, data: courseData });
+    res.status(200).json({ success: true, data: lessonData });
   } catch (error) {
     console.log(error);
-    if (error.code === 404) {
-      res.json({ success: false, msg: error.message });
+    if (error.original.code === "22P02") {
+      res.json({ success: false, msg: `${error.message} check courseId` });
     }
     if (error.original.code == 23505) {
       let payload = { success: false, msg: error.original.detail };
@@ -23,19 +23,9 @@ exports.createCourse = async (req, res) => {
   }
 };
 
-exports.allCourses = async (req, res) => {
+exports.getAllLessons = async (req, res) => {
   try {
-    let courses = await Course.findAllCourses();
-    res.json({ success: true, data: courses });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, msg: error.message });
-  }
-};
-
-exports.courseList = async (req, res) => {
-  try {
-    let courses = await Course.findAllCourses(["id", "name"]);
+    let courses = await Lesson.findAllLessons();
     res.json({ success: true, data: courses });
   } catch (error) {
     console.log(error);

@@ -14,6 +14,11 @@ router.get(
   roleRestrictMiddleware(["admin"]),
   course.allCourses
 );
+router.get(
+  "/getcourselist",
+  roleRestrictMiddleware(["admin"]),
+  course.courseList
+);
 router.post(
   "/deactivatecourse",
   roleRestrictMiddleware(["admin"]),

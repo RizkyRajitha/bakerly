@@ -1,8 +1,9 @@
 const Users = require("./user.model").Users;
 const Course = require("./course.model").Course;
 const Purchase = require("./purchases.model").Purchases;
+const Lessons = require("./lessons.model").Lessons;
 
-//
+// course created - admin user one to many
 Course.belongsTo(Users, {
   //   as: "createdUSer",
   foreignKey: {
@@ -19,6 +20,7 @@ Users.hasMany(Course, {
   },
 });
 
+// course purchase - cutomer user one to many
 Purchase.belongsTo(Users, {
   foreignKey: {
     name: "purchasedUser",
@@ -33,10 +35,41 @@ Users.hasMany(Purchase, {
   },
 });
 
+// Lessons added - admin user one to many
+Lessons.belongsTo(Users, {
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+});
+
+Users.hasMany(Lessons, {
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+});
+
+// Lessons added to a course oen to many
+
+Lessons.belongsTo(Course, {
+  foreignKey: {
+    name: "CourseId",
+    field: "courseId",
+  },
+});
+
+Course.hasMany(Lessons, {
+  foreignKey: {
+    name: "CourseId",
+    field: "courseId",
+  },
+});
+
 console.log(Course.associations);
 console.log(Users.associations);
 
-module.exports = { Users, Course, Purchase };
+module.exports = { Users, Course, Purchase, Lessons };
 
 // const Sequelize = require("sequelize");
 // const { DataTypes } = require("sequelize");

@@ -68,20 +68,27 @@ exports.findCourseById = (id, attributes = null) => {
   });
 };
 
-exports.findAllCourses = () => {
+exports.findAllCourses = (attributes = null) => {
   // return Course.findAll({
   //   include: [{ model: Users, as: "users" }],
   // });
   // console.log(Users.name);
   // console.log(Users.associations);
   // return Users.findAll({ include: ["courses"] });
-  return Course.findAll({
-    include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
-  });
+  if (attributes) {
+    return Course.findAll({
+      attributes: attributes,
+      // include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
+    });
+  } else {
+    return Course.findAll({
+      include: [{ model: Users, attributes: ["name", "id", "createdAt"] }],
+    });
+  }
 };
 
 exports.deactivateCourse = (id) => {
-  return Course.findByPk(id).then(data=>{
-    data.update({active:false})
-  })
+  return Course.findByPk(id).then((data) => {
+    data.update({ active: false });
+  });
 };
