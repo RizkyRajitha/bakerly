@@ -13,7 +13,9 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Bundle app source
+RUN ls
 COPY . .
+RUN npm install -g sequelize-cli 
 
 EXPOSE 3001
 CMD [ "node", "app.js" ]

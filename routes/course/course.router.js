@@ -21,6 +21,12 @@ router.get(
 );
 
 router.get(
+  "/getcoursewithlessons",
+  roleRestrictMiddleware(["admin","customer"]),
+  course.courseList
+);
+
+router.get(
   "/getcourses",
   roleRestrictMiddleware(["admin"]),
   course.getCourses

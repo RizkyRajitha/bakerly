@@ -83,7 +83,7 @@ app.use("/api/course", jwtAuthMiddleware, require("./routes/course/course.router
 app.use("/api/lesson", jwtAuthMiddleware , require("./routes/lesson/lesson.router")); // use jwt middleware
 // app.use("/reg", require("./routes/register/register.router")); //dont add jwt middleware
 // app.use("/api/shop", require("./routes/public/shop.router")); // use jwt middleware
-
+console.log("blaaaaaaaaaaaaaaa")
 app.get("/", (req, res) => {
   res.json({ message: "bakerly" });
 });

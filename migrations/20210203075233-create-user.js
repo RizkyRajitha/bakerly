@@ -14,7 +14,19 @@ module.exports = {
       active: { type: Sequelize.BOOLEAN, defaultValue: true },
       source: { type: Sequelize.STRING },
       avatarUrl: { type: Sequelize.STRING },
-      userType: { type: Sequelize.STRING ,allowNull: false},
+      userType: { type: Sequelize.STRING, allowNull: false },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

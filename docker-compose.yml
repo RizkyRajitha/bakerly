@@ -2,14 +2,18 @@ version: "3"
 services:
   backerly-service:
     build: "."
+    image: backerly-service:latest
     depends_on:
       - backerly-service-db
     environment:
-      - DB_URI=postgres://ultralegend:pro@localhost/ab?charset=UTF8
+      - DB_URI=postgres://ultralegend:pro@backerly-service-db/ab
+      - NODE_ENV=staging
       # - DATABASE=ab
       # - DATANAME=ultralegend
       # - DATAPASS=pro
       # - DATAHOST=backerly-service-db
+    volumes:
+        - .:/usr/src/app
     ports:
       - 3001:3001
 
@@ -20,10 +24,21 @@ services:
       - POSTGRES_PASSWORD=pro
     image: postgres:10-alpine
     ports:
-      - 0.0.0.0:5432:5432
+      - 7100:5432
   # classfeild-service:
   # build: "./classfeild-service"
   # depends_on:
   # - classfeild-service-db
-  # volumes:
-  #     - ./classfeild-service:/opt/app
+    volumes:
+        - ./backerly-service-db:/opt/app
+
+  migrate:
+    image: backerly-service:latest
+    depends_on:
+      - backerly-service
+      - backerly-service-db
+    command: sequelize db:migrate --url 'postgres://ultralegend:pro@backerly-service-db/ab'
+    volumes:
+        - .:/usr/src/app
+
+

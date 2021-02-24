@@ -2,12 +2,13 @@
 const Sequalize = require("sequelize");
 const dbConfig = require("../config/db.config");
 console.log(dbConfig);
-const env = process.env.NODE_ENV || "development"; //"staging";
-let envConfig = dbConfig[env];
-
+const env = process.env.NODE_ENV; //|| "development"; //"staging";
+console.log(env);
 let sequelize;
 
 if (env === "development") {
+  let envConfig = dbConfig[env];
+
   sequelize = new Sequalize(
     envConfig.database,
     envConfig.username,
@@ -26,11 +27,12 @@ if (env === "development") {
       dialectOptions: {
         charset: "utf8",
         multipleStatements: true,
-      }
+      },
     }
   );
 } else if (env === "staging") {
-  sequelize = new Sequalize([process.env.DB_URL]); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
+  console.log(process.env.DB_URI)
+  sequelize = new Sequalize(process.env.DB_URI); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
 }
 
 sequelize
