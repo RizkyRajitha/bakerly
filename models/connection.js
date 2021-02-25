@@ -2,7 +2,7 @@
 const Sequalize = require("sequelize");
 const dbConfig = require("../config/db.config");
 console.log(dbConfig);
-const env = process.env.NODE_ENV; //|| "development"; //"staging";
+const env = process.env.NODE_ENV || "development"; //"staging";
 console.log(env);
 let sequelize;
 

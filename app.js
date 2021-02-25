@@ -1,6 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swagegrDoc = require("./swagger.json");
+// var import swagegr from "swagger-jsdoc";
+const swaggerJsdoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
+
 // const Sentry = require('@sentry/node');
 // const Tracing = require("@sentry/tracing");
 
@@ -35,6 +41,16 @@ const { jwtAuthMiddleware } = require("./middleware/jwtauth");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// const options = 
+
+const specs = swaggerJsdoc(swagegrDoc);
+
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
 // app.get("/debug-sentry", function mainHandler(req, res) {
 //   throw new Error("My first Sentry error!");
 // });
@@ -79,17 +95,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/auth", require("./routes/auth/login.router")); //dont add jwt middleware
 app.use("/auth", require("./routes/auth/signup.router")); //dont add jwt middleware
 app.use("/api/user", jwtAuthMiddleware, require("./routes/user/user.router")); // use jwt middleware
-app.use("/api/course", jwtAuthMiddleware, require("./routes/course/course.router")); // use jwt middleware
-app.use("/api/lesson", jwtAuthMiddleware , require("./routes/lesson/lesson.router")); // use jwt middleware
+app.use(
+  "/api/course",
+  jwtAuthMiddleware,
+  require("./routes/course/course.router")
+); // use jwt middleware
+app.use(
+  "/api/lesson",
+  jwtAuthMiddleware,
+  require("./routes/lesson/lesson.router")
+); // use jwt middleware
 // app.use("/reg", require("./routes/register/register.router")); //dont add jwt middleware
 // app.use("/api/shop", require("./routes/public/shop.router")); // use jwt middleware
-console.log("blaaaaaaaaaaaaaaa")
+console.log("blaaaaaaaaaaaaaaa");
 app.get("/", (req, res) => {
   res.json({ message: "bakerly" });
 });
 
 app.get("/findall", async (req, res) => {
-  let users = await userdb.findAllUsers()
+  let users = await userdb.findAllUsers();
   res.json(users);
 });
 
