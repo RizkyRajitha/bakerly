@@ -36,7 +36,13 @@ if (env === "development") {
 } else if (env === "production") {
   console.log(process.env.DB_URI);
   sequelize = new Sequalize(process.env.DB_URI, {
-    dialectOptions: { ssl: true },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+    dialectOptions: { ssl: true, rejectUnauthorized: false },
   }); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
 }
 sequelize
