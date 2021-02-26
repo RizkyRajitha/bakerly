@@ -35,7 +35,9 @@ if (env === "development") {
   sequelize = new Sequalize(process.env.DB_URI); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
 } else if (env === "production") {
   console.log(process.env.DB_URI);
-  sequelize = new Sequalize(process.env.DB_URI); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
+  sequelize = new Sequalize(process.env.DB_URI, {
+    dialectOptions: { ssl: true },
+  }); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
 }
 sequelize
   .authenticate()
