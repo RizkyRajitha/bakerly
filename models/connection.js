@@ -32,7 +32,7 @@ if (env === "development") {
   );
 } else if (env === "staging") {
   console.log(process.env.DB_URI);
- //sequelize = new Sequalize(process.env.DB_URI); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
+  //sequelize = new Sequalize(process.env.DB_URI); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
 } else if (env === "production") {
   let dboptions = {
     dialect: "postgres",
@@ -52,7 +52,14 @@ if (env === "development") {
   };
   console.log(process.env.DB_URI);
   console.log(dboptions);
-  sequelize = new Sequalize(process.env.DB_URI, dboptions); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
+  sequelize = new Sequalize(process.env.DB_URI, {
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
+      },
+    },
+  }); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
 }
 sequelize
   .authenticate()
