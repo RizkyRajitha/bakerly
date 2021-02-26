@@ -35,6 +35,8 @@ if (env === "development") {
   sequelize = new Sequalize(process.env.DB_URI); //'postgres://backerly:123@localhost/backerly?charset=UTF8'
 } else if (env === "production") {
   let dboptions = {
+    dialect: "postgres",
+    protocol: "postgres",
     pool: {
       max: 5,
       min: 0,
