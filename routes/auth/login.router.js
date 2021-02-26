@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
-
 const login = require("./login.routes");
+const loginValidator = require("../../validators/login").loginValidator;
+
+// router.use()
+
+router.post("/loginwemail", loginValidator, login.loginwemail);
+
+module.exports = router;
+// module.exports = router;
 
 /**
  * @swagger
@@ -34,13 +41,13 @@ const login = require("./login.routes");
  *               properties:
  *                 token:
  *                   type: string
- *                   description: 
+ *                   description:
  *                   example: true
  *                 success:
  *                   type: boolean
  *                   description: true if the request is success.
  *                   example: true
- * 
+ *
  *       401:
  *         description: login with invalid user name and password.
  *         content:
@@ -57,7 +64,3 @@ const login = require("./login.routes");
  *                   description: false if the request is failed.
  *                   example: false
  */
-router.post("/loginwemail", login.loginwemail);
-
-module.exports = router;
-// module.exports = router;
