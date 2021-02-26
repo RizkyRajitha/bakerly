@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const roleRestrictMiddleware = require("../../middleware/roleRestrict")
-  .roleRestrictMiddleware;
+const { roleRestrictMiddleware } = require("../../middleware/roleRestrict");
 const course = require("./course.routes");
 
 router.post(
@@ -22,15 +21,11 @@ router.get(
 
 router.get(
   "/getcoursewithlessons",
-  roleRestrictMiddleware(["admin","customer"]),
+  roleRestrictMiddleware(["admin", "customer"]),
   course.courseList
 );
 
-router.get(
-  "/getcourses",
-  roleRestrictMiddleware(["admin"]),
-  course.getCourses
-);
+router.get("/getcourses", roleRestrictMiddleware(["admin"]), course.getCourses);
 
 router.post(
   "/deactivatecourse",

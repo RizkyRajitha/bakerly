@@ -3,9 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swagegrDoc = require("./swagger.json");
-// var import swagegr from "swagger-jsdoc";
 const swaggerJsdoc = require("swagger-jsdoc");
-// const swaggerUi = require("swagger-ui-express");
+const specs = swaggerJsdoc(swagegrDoc);
 
 // const Sentry = require('@sentry/node');
 // const Tracing = require("@sentry/tracing");
@@ -35,22 +34,13 @@ const app = express();
 // const db = require("./models");
 
 const userdb = require("./dbFunctions/user");
-// im
 const { jwtAuthMiddleware } = require("./middleware/jwtauth");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const options = 
-
-const specs = swaggerJsdoc(swagegrDoc);
-
-app.use(
-  "/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(specs, { explorer: true })
-);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 // app.get("/debug-sentry", function mainHandler(req, res) {
 //   throw new Error("My first Sentry error!");
 // });
@@ -92,16 +82,20 @@ app.use(
 //   }
 // }
 
-app.use("/auth", require("./routes/auth/login.router")); //dont add jwt middleware
-app.use("/auth", require("./routes/auth/signup.router")); //dont add jwt middleware
-app.use("/api/user", jwtAuthMiddleware, require("./routes/user/user.router")); // use jwt middleware
+app.use("/v1/auth", require("./routes/auth/login.router")); //dont add jwt middleware
+app.use("/v1/auth", require("./routes/auth/signup.router")); //dont add jwt middleware
 app.use(
-  "/api/course",
+  "/v1/api/user",
+  jwtAuthMiddleware,
+  require("./routes/user/user.router")
+); // use jwt middleware
+app.use(
+  "/v1/api/course",
   jwtAuthMiddleware,
   require("./routes/course/course.router")
 ); // use jwt middleware
 app.use(
-  "/api/lesson",
+  "/v1/api/lesson",
   jwtAuthMiddleware,
   require("./routes/lesson/lesson.router")
 ); // use jwt middleware
