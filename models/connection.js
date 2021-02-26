@@ -43,7 +43,12 @@ if (env === "development") {
       acquire: 30000,
       idle: 10000,
     },
-    dialectOptions: { ssl: true, rejectUnauthorized: false },
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
+      },
+    },
   };
   console.log(process.env.DB_URI);
   console.log(dboptions);
