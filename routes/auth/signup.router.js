@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-
 const signup = require("./signup.routes");
+const { signupValidator } = require("../../validators/signup");
 
-router.post("/signupwemail", signup.signupwemail);
+router.post("/signupwemail", signupValidator, signup.signupwemail);
 router.post("/signupwegoogle", signup.signupwegoogle);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const login = require("./login.routes");
-const loginValidator = require("../../validators/login").loginValidator;
+const { loginValidator } = require("../../validators/login");
 
 // router.use()
 

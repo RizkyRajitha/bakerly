@@ -6,7 +6,7 @@ const loginValidator = (req, res, next) => {
   let { email, password } = req.body;
   console.log(email, password);
   if (email && password) {
-    if (validator.isEmail(email)) {
+    if (!validator.isEmail(email)) {
       res.status(400).json({ success: false, msg: "invalid email format" });
       return;
     }
