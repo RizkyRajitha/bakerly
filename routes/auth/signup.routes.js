@@ -38,7 +38,7 @@ exports.signupwemail = (req, res) => {
         res.status(400).json(payload);
       } else {
         let payload = { success: false, msg: err.message };
-        res.status(400).json(payload);
+        res.status(500).json(payload);
       }
     });
 };

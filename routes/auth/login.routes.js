@@ -30,7 +30,6 @@ exports.loginwemail = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-
     if (error.code === 404) {
       res.json({ success: false, msg: "invalid_email" });
     }
