@@ -15,7 +15,8 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "backerly" #Must be unique in Heroku
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-      - name: install sequalize 
+          
+      - name: install sequalize
           run: npm install -g sequelize-cli 
       - name: set db credentials 
           run: echo ${{secrets.HEROKU_EMAIL}} >> config/db.config.js   
