@@ -9,10 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout master  branch 
+      - name: checkout master  branch
         uses: actions/checkout@v2
 
-      - name: heroku deploy  
+      - name: heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -21,17 +21,18 @@ jobs:
 
       - name: install sequalize
         run: |
-            npm install -g sequelize-cli 
-            
-      - name: set db credentials 
+          npm install sequelize-cli
+
+      - name: set db credentials
         run: |
-            echo ${{secrets.STAGING_DB_CONFIG}} >> config/db.config.js   
+          echo ${{secrets.STAGING_DB_CONFIG}} >> config/db.config.js
 
       - name: migrate db
         run: |
-            sequelize db:migrate --env staging 
+          npm run dbmigrate:staging
 
-            
+      # sequelize db:migrate --env staging
+
       # - name: checkout master  branch # checkout master  branch
       #   uses: actions/checkout@v2
       #   with:
@@ -39,4 +40,4 @@ jobs:
 
       # - name: remove all files # remove files.
       #   run: |
-      #     rm -rf *            
+      #     rm -rf *
