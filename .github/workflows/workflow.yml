@@ -9,8 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      - name: checkout master  branch 
+        uses: actions/checkout@v2
+
+      - name: heroku deploy  
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "backerly" #Must be unique in Heroku
@@ -19,11 +22,21 @@ jobs:
       - name: install sequalize
           run: |
             npm install -g sequelize-cli 
+            
       - name: set db credentials 
           run: |
             echo ${{secrets.HEROKU_EMAIL}} >> config/db.config.js   
+            
       - name: migrate db
           run: |
             sequelize db:migrate --env staging 
 
             
+      # - name: checkout master  branch # checkout master  branch
+      #   uses: actions/checkout@v2
+      #   with:
+      #     persist-credentials: false
+
+      # - name: remove all files # remove files.
+      #   run: |
+      #     rm -rf *            
