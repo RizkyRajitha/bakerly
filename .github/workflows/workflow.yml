@@ -30,14 +30,3 @@ jobs:
       - name: migrate db
         run: |
           npm run dbmigrate:staging
-
-      # sequelize db:migrate --env staging
-
-      # - name: checkout master  branch # checkout master  branch
-      #   uses: actions/checkout@v2
-      #   with:
-      #     persist-credentials: false
-
-      # - name: remove all files # remove files.
-      #   run: |
-      #     rm -rf *
