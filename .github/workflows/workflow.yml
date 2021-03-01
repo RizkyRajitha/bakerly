@@ -25,7 +25,7 @@ jobs:
             
       - name: set db credentials 
         run: |
-            echo ${{secrets.HEROKU_EMAIL}} >> config/db.config.js   
+            echo ${{secrets.STAGING_DB_CONFIG}} >> config/db.config.js   
 
       - name: migrate db
         run: |
