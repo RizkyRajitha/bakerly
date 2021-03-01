@@ -20,15 +20,15 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
 
       - name: install sequalize
-          run: |
+        run: |
             npm install -g sequelize-cli 
             
       - name: set db credentials 
-          run: |
+        run: |
             echo ${{secrets.HEROKU_EMAIL}} >> config/db.config.js   
-            
+
       - name: migrate db
-          run: |
+        run: |
             sequelize db:migrate --env staging 
 
             
