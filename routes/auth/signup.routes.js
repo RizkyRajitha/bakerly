@@ -22,6 +22,7 @@ exports.signupwemail = (req, res) => {
     email: req.body.email,
     password: hash,
     source: "emailAndPassword",
+    userType: "customer",
   };
 
   console.log(user);

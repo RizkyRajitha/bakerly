@@ -19,6 +19,8 @@ module.exports = {
       },
       name: { type: Sequelize.STRING },
       desicription: { type: Sequelize.STRING },
+      uri: { type: Sequelize.STRING },
+      status: { type: Sequelize.STRING },
       createdBy: {
         allowNull: false,
         references: {
@@ -35,6 +37,10 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
+        allowNull: true,
         type: Sequelize.DATE,
       },
     });

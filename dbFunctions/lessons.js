@@ -9,6 +9,7 @@ exports.createLesson = (lesson) => {
       desicription: lesson.desicription,
       courseId: lesson.courseId,
       createdBy: lesson.createdBy,
+      uri: lesson.url,
     })
       .then((lesson) => {
         console.log(lesson);

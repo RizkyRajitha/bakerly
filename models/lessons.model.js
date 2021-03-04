@@ -21,6 +21,8 @@ Lessons.init(
     },
     name: { type: DataTypes.STRING },
     desicription: { type: DataTypes.STRING },
+    uri: { type: DataTypes.STRING },
+    status: { type: DataTypes.STRING },
     createdBy: {
       allowNull: false,
       references: {
