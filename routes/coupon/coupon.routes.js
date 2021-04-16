@@ -26,7 +26,7 @@ exports.createCoupon = async (req, res) => {
 exports.allCoupon = async (req, res) => {
   try {
     let coupons = await Coupon.getAllCoupons();
-    res.json({ success: true, data: courses });
+    res.json({ success: true, data: coupons });
   } catch (error) {
     console.log(error);
     res.json({ success: false, msg: error.message });

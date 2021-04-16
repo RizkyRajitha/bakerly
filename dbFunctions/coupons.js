@@ -61,7 +61,7 @@ exports.getCouponByCourseId = (courseId) => {
 
 exports.getAllCoupons = () => {
   return new Promise((resolve, reject) => {
-    CouponCourseJoin.findAll({})
+    CouponCourseJoin.findAll({ include: ["coupon"] })
       .then((couponcoursejoin) => {
         console.log(couponcoursejoin);
         resolve(couponcoursejoin);
