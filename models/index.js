@@ -2,6 +2,8 @@ const Users = require("./user.model").Users;
 const Course = require("./course.model").Course;
 const Purchase = require("./purchases.model").Purchases;
 const Lessons = require("./lessons.model").Lessons;
+const Coupons = require("./coupon.model").Coupons;
+const CouponCourseJoin = require("./couponcourse.model").CouponCourseJoin;
 
 // course created - admin user one to many
 Course.belongsTo(Users, {
@@ -66,8 +68,65 @@ Course.hasMany(Lessons, {
   },
 });
 
+// Coupon have one user and one user will only have a one coupon
+
+Coupons.belongsTo(Users, {
+  //   as: "createdUSer",
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+  //   foreignKeyConstraint: false,
+});
+
+Users.hasOne(Coupons, {
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+});
+
+// Coupon have one user and one user will only have a one coupon
+
+CouponCourseJoin.belongsTo(Users, {
+  //   as: "createdUSer",
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+  //   foreignKeyConstraint: false,
+});
+
+Users.hasOne(CouponCourseJoin, {
+  foreignKey: {
+    name: "createdUser",
+    field: "createdBy",
+  },
+});
+
+// Coupon have many  CouponCourseJoin and one CouponCourseJoin will only have a one coupon
+
+
+CouponCourseJoin.belongsTo(Coupons, {
+  foreignKey: {
+    name: "couponId",
+    field: "couponId",
+  },
+});
+
+Coupons.hasMany(CouponCourseJoin, {
+  foreignKey: {
+    name: "couponId",
+    field: "couponId",
+  },
+});
+
 console.log(Course.associations);
 console.log(Users.associations);
+
+console.log(Coupons.associations);
+console.log(CouponCourseJoin.associations);
+
 
 module.exports = { Users, Course, Purchase, Lessons };
 
