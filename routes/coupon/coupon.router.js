@@ -6,12 +6,12 @@ const coupon = require("./coupon.routes");
 router.post(
   "/createcourse",
   roleRestrictMiddleware(["admin"]),
-  course.createCourse
+  coupon.createCoupon
 );
 router.get(
-  "/getallcourses",
+  "/getallcoupons",
   roleRestrictMiddleware(["admin"]),
-  course.allCourses
+  coupon.allCoupon
 );
 
 // router.get("/getdistrics", shop.allDistrics);
