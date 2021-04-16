@@ -24,7 +24,7 @@ CouponCourseJoin.init(
       allowNull: false,
       references: {
         key: "id",
-        model: "users",
+        model: "coupons",
       },
       type: DataTypes.UUID,
     },
@@ -32,7 +32,7 @@ CouponCourseJoin.init(
       allowNull: false,
       references: {
         key: "id",
-        model: "users",
+        model: "courses",
       },
       type: DataTypes.UUID,
     },
@@ -42,7 +42,7 @@ CouponCourseJoin.init(
     },
   },
   {
-    modelName: "couponcoursejoin",
+    modelName: "couponcourses",
     sequelize,
   }
 );

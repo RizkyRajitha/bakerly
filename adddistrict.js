@@ -1,11 +1,49 @@
 // const db = require("./dbFunctions/course");
-const db = require("./dbFunctions/puchase");
+//const db = require("./dbFunctions/puchase");
+const db = require("./dbFunctions/coupons");
 
-db.createPurchase({
-  purchasedBy: '681c333a-616e-494b-81e8-ff90502fb2b1',
-  courseId: '2e38f34f-ab02-4e4a-88f2-ebb5da2b8a64',
-  amount: 10
-});
+// db.addCoupon({
+//   code: "coupon.code",
+//   ownerId: "2fdbb23e-51c1-4be7-a382-f2b5f6d1d63f",
+//   createdBy: "7fd20628-2768-44bc-b0cc-f7fc0cc4a75f",
+// }).then((resolve) => {
+//    console.log(resolve);
+//   })
+//   .catch((reject) => {
+//    console.log(reject);
+//   })
+
+
+  // db.addCoursesToCoupon({
+  //   createdBy: '7fd20628-2768-44bc-b0cc-f7fc0cc4a75f',
+  //   discount: 100,
+  //   courseId: 'f393aff7-3e03-4d06-aa90-26b6e03feb94',
+  //   couponId: 'da284574-f7aa-4d70-9f3b-ada1db05de51',
+  // }).then((resolve) => {
+  //    console.log(resolve);
+  //   })
+  //   .catch((reject) => {
+  //    console.log(reject);
+  //   })
+
+
+  db.getCouponByCourseId('f393aff7-3e03-4d06-aa90-26b6e03feb94').then((resolve) => {
+     console.log(resolve);
+     console.log(resolve[0].dataValues);
+
+    })
+    .catch((reject) => {
+     console.log(reject);
+    })
+
+
+
+
+// db.createPurchase({
+//   purchasedBy: '681c333a-616e-494b-81e8-ff90502fb2b1',
+//   courseId: '2e38f34f-ab02-4e4a-88f2-ebb5da2b8a64',
+//   amount: 10
+// });
 
 // db.createCourse({
 //   name: "course.name",

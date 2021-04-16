@@ -106,7 +106,6 @@ Users.hasOne(CouponCourseJoin, {
 
 // Coupon have many  CouponCourseJoin and one CouponCourseJoin will only have a one coupon
 
-
 CouponCourseJoin.belongsTo(Coupons, {
   foreignKey: {
     name: "couponId",
@@ -121,14 +120,36 @@ Coupons.hasMany(CouponCourseJoin, {
   },
 });
 
+//
+
+CouponCourseJoin.belongsTo(Course, {
+  foreignKey: {
+    name: "courseId",
+    field: "courseId",
+  },
+});
+
+Course.hasMany(CouponCourseJoin, {
+  foreignKey: {
+    name: "courseId",
+    field: "courseId",
+  },
+});
+
 console.log(Course.associations);
 console.log(Users.associations);
 
 console.log(Coupons.associations);
 console.log(CouponCourseJoin.associations);
 
-
-module.exports = { Users, Course, Purchase, Lessons };
+module.exports = {
+  Users,
+  Course,
+  Purchase,
+  Lessons,
+  Coupons,
+  CouponCourseJoin,
+};
 
 // const Sequelize = require("sequelize");
 // const { DataTypes } = require("sequelize");

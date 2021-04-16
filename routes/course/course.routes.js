@@ -8,9 +8,9 @@ exports.createCourse = async (req, res) => {
   try {
     let courseData = { ...req.body, createdBy: res.locals.id };
     console.log(courseData);
-    await Course.createCourse(courseData);
-
-    res.status(200).json({ success: true, data: courseData });
+    let createdcourse = await Course.createCourse(courseData);
+    console.log(createdcourse);
+    res.status(200).json({ success: true, data: createdcourse });
   } catch (error) {
     console.log(error);
     if (error.code === 404) {

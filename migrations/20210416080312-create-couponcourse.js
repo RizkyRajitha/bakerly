@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
         references: {
           key: "id",
-          model: "users",
+          model: "coupons",
         },
         type: Sequelize.UUID,
       },
@@ -30,7 +30,7 @@ module.exports = {
         allowNull: false,
         references: {
           key: "id",
-          model: "users",
+          model: "courses",
         },
         type: Sequelize.UUID,
       },
