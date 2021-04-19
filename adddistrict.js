@@ -12,7 +12,7 @@ const db = require("./dbFunctions/coupons");
 //   });
 
 db.getCouponByownerIdAndCourseId(
-  "2fdbb23e-51c1-4be7-a382-f2b5f6d1d63f",
+  "2fdbb23e-51c1-4be7-a382-f2b5f6d1d633",
   "f393aff7-3e03-4d06-aa90-26b6e03feb93"
 ).then((resolve) => {
    console.log(resolve);

@@ -31,6 +31,34 @@ exports.addCourseToCoupon = async (req, res) => {
   }
 };
 
+exports.getCouponByownerId = async (req, res) => {
+  console.log(req.body);
+  try {
+    let coupon = Coupon.getCouponByownerId(req.body.ownerId);
+    console.log(coupon);
+    res.status(200).json({ success: true, data: coupon });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};
+
+exports.getCouponByownerIdAndCourseId = async (req, res) => {
+  console.log(req.body);
+  try {
+    let coupon = Coupon.getCouponByownerIdAndCourseId({
+      ownerId: req.body.ownerId,
+      courseId: req.body.courseId,
+    });
+
+    console.log(coupon);
+    res.status(200).json({ success: true, data: coupon });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
+  }
+};
+
 exports.allCoupon = async (req, res) => {
   try {
     let coupons = await Coupon.getAllCoupons();

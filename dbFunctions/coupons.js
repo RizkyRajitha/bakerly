@@ -71,10 +71,19 @@ exports.getCouponByownerId = (ownerId) => {
       console.log(coupon);
       // resolve(coupon);
 
+      if (coupon.length) {
+        reject({ code: 404, message: "no coupons found" });
+        return;
+      }
+
       let coursecoupon = await CouponCourseJoin.findAll({
         where: { couponId: coupon[0].id },
       });
 
+      if (coursecoupon.length) {
+        reject({ code: 405, message: "no courses found for coupons" });
+        return;
+      }
       resolve(coursecoupon);
     } catch (error) {
       console.log(error);
@@ -92,12 +101,20 @@ exports.getCouponByownerIdAndCourseId = (ownerId, courseId) => {
         },
       });
 
-      console.log(coupon);
+      if (coupon.length === 0) {
+        reject({ code: 404, message: "no coupons found" });
+        return;
+      }
       // resolve(coupon);
 
       let coursecoupon = await CouponCourseJoin.findAll({
         where: { couponId: coupon[0].id, courseId },
       });
+
+      if (coursecoupon.length) {
+        reject({ code: 405, message: "no courses found for coupons" });
+        return;
+      }
 
       resolve(coursecoupon);
     } catch (error) {

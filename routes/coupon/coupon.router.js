@@ -8,6 +8,17 @@ router.post(
   roleRestrictMiddleware(["admin"]),
   coupon.createCoupon
 );
+
+router.get(
+  "/getcouponbyownerid",
+  roleRestrictMiddleware(["admin"]),
+  coupon.getCouponByownerId
+);
+router.get(
+  "/getcouponbyowneridandcourseid",
+  roleRestrictMiddleware(["admin"]),
+  coupon.getCouponByownerIdAndCourseId
+);
 router.get(
   "/getallcoupons",
   roleRestrictMiddleware(["admin"]),
