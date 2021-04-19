@@ -59,6 +59,54 @@ exports.getCouponByCourseId = (courseId) => {
   });
 };
 
+exports.getCouponByownerId = (ownerId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let coupon = await Coupon.findAll({
+        where: {
+          ownerId,
+        },
+      });
+
+      console.log(coupon);
+      // resolve(coupon);
+
+      let coursecoupon = await CouponCourseJoin.findAll({
+        where: { couponId: coupon[0].id },
+      });
+
+      resolve(coursecoupon);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+
+exports.getCouponByownerIdAndCourseId = (ownerId, courseId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let coupon = await Coupon.findAll({
+        where: {
+          ownerId,
+        },
+      });
+
+      console.log(coupon);
+      // resolve(coupon);
+
+      let coursecoupon = await CouponCourseJoin.findAll({
+        where: { couponId: coupon[0].id, courseId },
+      });
+
+      resolve(coursecoupon);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+
 exports.getAllCoupons = () => {
   return new Promise((resolve, reject) => {
     CouponCourseJoin.findAll({ include: ["coupon"] })

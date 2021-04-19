@@ -13,13 +13,21 @@ exports.createCoupon = async (req, res) => {
     res.status(200).json({ success: true, data: createdCoupon });
   } catch (error) {
     console.log(error);
-    if (error.code === 404) {
-      res.json({ success: false, msg: error.message });
-    }
-    if (error.original.code == 23505) {
-      let payload = { success: false, msg: error.original.detail };
-      res.status(400).json(payload);
-    }
+    res.json({ success: false, msg: error.message });
+  }
+};
+
+exports.addCourseToCoupon = async (req, res) => {
+  console.log(req.body);
+  try {
+    let CouponData = { ...req.body, createdBy: res.locals.id };
+    console.log(CouponData);
+    let addedCourse = Coupon.addCoursesToCoupon(CouponData);
+    console.log(addedCourse);
+    res.status(200).json({ success: true, data: addedCourse });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: error.message });
   }
 };
 

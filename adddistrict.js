@@ -2,6 +2,25 @@
 //const db = require("./dbFunctions/puchase");
 const db = require("./dbFunctions/coupons");
 
+// db.getCouponByownerId("2fdbb23e-51c1-4be7-a382-f2b5f6d1d63f")
+//   .then((resolve) => {
+//     console.log(resolve);
+//     console.log(resolve[0].id);
+//   })
+//   .catch((reject) => {
+//     console.log(reject);
+//   });
+
+db.getCouponByownerIdAndCourseId(
+  "2fdbb23e-51c1-4be7-a382-f2b5f6d1d63f",
+  "f393aff7-3e03-4d06-aa90-26b6e03feb93"
+).then((resolve) => {
+   console.log(resolve);
+  })
+  .catch((reject) => {
+   console.log(reject);
+  })
+
 // db.addCoupon({
 //   code: "coupon.code",
 //   ownerId: "2fdbb23e-51c1-4be7-a382-f2b5f6d1d63f",
@@ -13,31 +32,26 @@ const db = require("./dbFunctions/coupons");
 //    console.log(reject);
 //   })
 
+// db.addCoursesToCoupon({
+//   createdBy: '7fd20628-2768-44bc-b0cc-f7fc0cc4a75f',
+//   discount: 100,
+//   courseId: 'f393aff7-3e03-4d06-aa90-26b6e03feb94',
+//   couponId: 'da284574-f7aa-4d70-9f3b-ada1db05de51',
+// }).then((resolve) => {
+//    console.log(resolve);
+//   })
+//   .catch((reject) => {
+//    console.log(reject);
+//   })
 
-  // db.addCoursesToCoupon({
-  //   createdBy: '7fd20628-2768-44bc-b0cc-f7fc0cc4a75f',
-  //   discount: 100,
-  //   courseId: 'f393aff7-3e03-4d06-aa90-26b6e03feb94',
-  //   couponId: 'da284574-f7aa-4d70-9f3b-ada1db05de51',
-  // }).then((resolve) => {
-  //    console.log(resolve);
-  //   })
-  //   .catch((reject) => {
-  //    console.log(reject);
-  //   })
+// db.getCouponByCourseId('f393aff7-3e03-4d06-aa90-26b6e03feb94').then((resolve) => {
+//    console.log(resolve);
+//    console.log(resolve[0].dataValues);
 
-
-  db.getCouponByCourseId('f393aff7-3e03-4d06-aa90-26b6e03feb94').then((resolve) => {
-     console.log(resolve);
-     console.log(resolve[0].dataValues);
-
-    })
-    .catch((reject) => {
-     console.log(reject);
-    })
-
-
-
+//   })
+//   .catch((reject) => {
+//    console.log(reject);
+//   })
 
 // db.createPurchase({
 //   purchasedBy: '681c333a-616e-494b-81e8-ff90502fb2b1',

@@ -47,6 +47,12 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    await queryInterface.addConstraint("couponcourses", {
+      fields: ["courseId", "couponId"],
+      type: "unique",
+      name: "courseIdAndcouponIdConstrain",
+    });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("couponcourses");
