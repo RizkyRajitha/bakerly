@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const uuid = require("uuid").v4;
 const redis = require("../../redis/redis");
 
 const jwtsecret = "123";
@@ -13,38 +14,54 @@ exports.loginwemail = async (req, res) => {
     let user = await User.findUserByEmail(req.body.email, ["id", "password"]);
 
     let state = bcrypt.compareSync(req.body.password, user.password);
+
     console.log(state);
     console.log(user);
+    if (!state) {
+      res.status(401).json({ success: false, msg: "invalid_password" });
+      return;
+    }
 
-    // redis.redisClient.setex("wow", 3600, "nani", (err, reply) => {
-    //   console.log(err);
-    //   console.log(reply);
-    // });
-    let ses = await redis.setSession(user.id, 10);
-    console.log(ses);
-    // redis.redisClient.get("wow", (err, reply) => {
-    //   console.log(err);
-    //   console.log(reply);
-    // });
+    try {
+      let ses = await redis.getSession(user.id);
+      console.log(ses);
 
-    if (state) {
+      if (ses.success) {
+        console.log("2 users from same creds");
+        let state = await redis.removeSession(user.id);
+        console.log(state);
+      }
+      let sesId = uuid();
+      console.log(sesId);
+      let newSession = await redis.setSession(user.id, sesId);
+      console.log(newSession);
+
       let token = jwt.sign(
         {
           email: user.email,
           id: user.id,
+          sessionId: sesId,
         },
         jwtsecret,
         { expiresIn: "600m" }
       );
-
-      res.status(200).json({ success: true, token: token });
-    } else {
-      res.status(401).json({ success: false, msg: "invalid_password" });
+      res.status(200).json({ success: true, token: token, sesId });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        msg: "error_creating_session",
+        err: error,
+      });
     }
+
+    redis.getAllSession();
   } catch (error) {
     console.log(error);
     if (error.code === 404) {
-      res.json({ success: false, msg: "invalid_email" });
+      res.status(400).json({ success: false, msg: "invalid_email" });
+      return;
     }
+    res.status(500).json({ success: false, msg: error });
   }
 };

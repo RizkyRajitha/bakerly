@@ -19,15 +19,16 @@ redisClient.on("error", function (error) {
 /**
  * create a session in redis
  * @param {string} userId
+ * @param {string} sessionId
  * @param {number} time
  * @returns object
  */
-function setSession(userId, time) {
+function setSession(userId, sessionId, time) {
   return new Promise((resolve, reject) => {
     redisClient.setex(
       userId,
       3600,
-      JSON.stringify({ userId, status: true }),
+      JSON.stringify({ userId, sessionId }),
       (err, reply) => {
         if (err) {
           console.log(err);
@@ -52,15 +53,28 @@ function setSession(userId, time) {
 function getSession(userId) {
   return new Promise((resolve, reject) => {
     redisClient.get(userId, (err, reply) => {
+      console.log(err);
+
       if (err) {
         console.log(err);
         reject({
           reply: err,
-          message: "invalid session",
+          message: "error getting session",
           success: false,
         });
         return;
       }
+
+      if (!reply) {
+        console.log(reply);
+        resolve({
+          reply: reply,
+          message: "no session found",
+          success: false,
+        });
+        return;
+      }
+
       console.log(reply);
       resolve({ reply, message: "valid session", success: true });
     });
@@ -94,8 +108,36 @@ function getAllSession() {
   // });
 }
 
-// getAllSession();
+/**
+ * get all stored sessions in redis
+ * @returns [userId]
+ */
+function removeSession(userId) {
+  return new Promise((resolve, reject) => {
+    redisClient.del(userId, (err, reply) => {
+      if (err) {
+        console.log(err);
+        reject({
+          reply: err,
+          message: "error getting sessions",
+          success: false,
+        });
+        return;
+      }
+      console.log(reply);
+      resolve({ reply, success: true });
+    });
+  });
+
+  // redisClient.keys("*", (err, reply) => {
+  //   console.log(err);
+  //   console.log(reply);
+  // });
+}
+getAllSession();
 
 module.exports.redisClient = redisClient;
+module.exports.getSession = getSession;
 module.exports.setSession = setSession;
 module.exports.getAllSession = getAllSession;
+module.exports.removeSession = removeSession;
