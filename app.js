@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
 const swaggerUi = require("swagger-ui-express");
 const swagegrDoc = require("./swagger.json");
 const swaggerJsdoc = require("swagger-jsdoc");
@@ -11,6 +12,12 @@ const specs = swaggerJsdoc(swagegrDoc);
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+const redisHost = process.env.redisHost || require("./config/env").redisHost;
+const redisPort = process.env.redisPort || require("./config/env").redisPort;
+const redisPass = process.env.redisPass || require("./config/env").redisPass;
+
+require("./redis/redis");
 
 // Sentry.init({
 //   dsn: "https://313ec29e40ac419fb69d3a9ba3189edb@o516292.ingest.sentry.io/5622667",

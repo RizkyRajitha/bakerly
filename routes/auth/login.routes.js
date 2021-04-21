@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const redis = require("../../redis/redis");
+
 const jwtsecret = "123";
-// process.env.jwtsecret || require("../../config/env").jwtsecret;
+
 const User = require("../../dbFunctions/user");
 
 exports.loginwemail = async (req, res) => {
@@ -13,6 +15,16 @@ exports.loginwemail = async (req, res) => {
     let state = bcrypt.compareSync(req.body.password, user.password);
     console.log(state);
     console.log(user);
+
+    redis.redisClient.setex("wow", 3600, "nani", (err, reply) => {
+      console.log(err);
+      console.log(reply);
+    });
+
+    redis.redisClient.get("wow", (err, reply) => {
+      console.log(err);
+      console.log(reply);
+    });
 
     if (state) {
       let token = jwt.sign(
