@@ -23,7 +23,8 @@ const jwtAuthMiddleware = (req, res, next) => {
           console.log(sessionId);
           console.log(decoded)
 
-          if (decoded.sessionId !== sessionId) {
+          if (decoded.sessionId
+             !== sessionId) {
             console.log(" session duplicated");
             return res.status(403).send({
               error: true,
