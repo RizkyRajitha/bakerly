@@ -16,6 +16,12 @@ redisClient.on("error", function (error) {
   console.error(error);
 });
 
+/**
+ * create a session in redis
+ * @param {string} userId
+ * @param {number} time
+ * @returns object
+ */
 function setSession(userId, time) {
   return new Promise((resolve, reject) => {
     redisClient.setex(
@@ -25,15 +31,71 @@ function setSession(userId, time) {
       (err, reply) => {
         if (err) {
           console.log(err);
-          reject(err);
+          reject({
+            reply: err,
+            message: "error in session creating",
+            success: false,
+          });
           return;
         }
         console.log(reply);
-        resolve(reply);
+        resolve({ reply, message: "session created", success: true });
       }
     );
   });
 }
+/**
+ * get a stored session in redis
+ * @param {string} userId
+ * @returns object
+ */
+function getSession(userId) {
+  return new Promise((resolve, reject) => {
+    redisClient.get(userId, (err, reply) => {
+      if (err) {
+        console.log(err);
+        reject({
+          reply: err,
+          message: "invalid session",
+          success: false,
+        });
+        return;
+      }
+      console.log(reply);
+      resolve({ reply, message: "valid session", success: true });
+    });
+  });
+}
+
+/**
+ * get all stored sessions in redis
+ * @returns [userId]
+ */
+function getAllSession() {
+  return new Promise((resolve, reject) => {
+    redisClient.keys("*", (err, reply) => {
+      if (err) {
+        console.log(err);
+        reject({
+          reply: err,
+          message: "error getting sessions",
+          success: false,
+        });
+        return;
+      }
+      console.log(reply);
+      resolve({ sessions: reply, success: true });
+    });
+  });
+
+  // redisClient.keys("*", (err, reply) => {
+  //   console.log(err);
+  //   console.log(reply);
+  // });
+}
+
+// getAllSession();
 
 module.exports.redisClient = redisClient;
 module.exports.setSession = setSession;
+module.exports.getAllSession = getAllSession;
