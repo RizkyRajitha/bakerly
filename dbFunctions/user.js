@@ -1,6 +1,21 @@
 const User = require("../models/user.model").Users;
-// const User = db.User;
 
+/**
+ * A song
+ * @typedef {Object} User
+ * @property {string} name - The name
+ * @property {string} email - The email
+ * @property {string} password - The password
+ * @property {string} source - The source
+ * @property {string} avatarUrl - The avatarUrl
+ * @property {string} userType - The userType
+ */
+
+/**
+ * Create new user
+ * @param {User} user
+ * @return {Promise<User>}
+ */
 exports.createUser = (user) => {
   return new Promise((resolve, reject) => {
     User.create({
@@ -24,18 +39,33 @@ exports.createUser = (user) => {
   });
 };
 
+/**
+ * find All Users
+ * @return {Promise<User>}
+ */
 exports.findAllUsers = () => {
   return User.findAll({ attributes: { exclude: ["password"] } });
 };
 
+/**
+ * find All Customers
+ * @return {Promise<User>}
+ */
 exports.findAllCustomers = () => {
   return User.findAll({ where: { userType: "customer" } });
 };
-
+/**
+ * find All Users with disstric object
+ * @return {Promise<User>}
+ */
 exports.findAllUsersWithDistrict = () => {
   return User.findAll({ include: ["district"] });
 };
-
+/**
+ * find a User by email
+ * @param {string} email
+ * @return {Promise<User>}
+ */
 exports.findUserByEmail = (email, attributes = null) => {
   return new Promise((resolve, reject) => {
     if (attributes) {
@@ -81,6 +111,11 @@ exports.findUserByEmail = (email, attributes = null) => {
   });
 };
 
+/**
+ * find a User by Id
+ * @param {string} Id
+ * @return {Promise<User>}
+ */
 exports.findUserById = (id, attributes = null) => {
   return new Promise((resolve, reject) => {
     if (attributes) {

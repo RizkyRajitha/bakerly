@@ -3,6 +3,11 @@ const Users = require("../models").Users;
 
 const Course = require("../models").Course;
 
+/**
+ * create a course
+ * @param {Course} course
+ * @return {Promise<Course>}
+ */
 exports.createCourse = (course) => {
   return new Promise((resolve, reject) => {
     Course.create({
@@ -22,6 +27,11 @@ exports.createCourse = (course) => {
   });
 };
 
+/**
+ * find a Course By Id
+ * @param {string} Id
+ * @return {Promise<Course>}
+ */
 exports.findCourseById = (id, attributes = null) => {
   return new Promise((resolve, reject) => {
     if (attributes) {
@@ -68,6 +78,10 @@ exports.findCourseById = (id, attributes = null) => {
   });
 };
 
+/**
+ * find all Course
+ * @return {Promise<Course>}
+ */
 exports.findAllCourses = (attributes = null) => {
   // return Course.findAll({
   //   include: [{ model: Users, as: "users" }],
@@ -102,6 +116,11 @@ exports.findCourses = (where = null, attributes = null) => {
   }
 };
 
+/**
+ * deactivate a Course By Id
+ * @param {string} Id 
+//  * @return {Promise<Course>}
+ */
 exports.deactivateCourse = (id) => {
   return Course.findByPk(id).then((data) => {
     data.update({ active: false });
