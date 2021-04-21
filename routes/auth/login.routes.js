@@ -16,15 +16,16 @@ exports.loginwemail = async (req, res) => {
     console.log(state);
     console.log(user);
 
-    redis.redisClient.setex("wow", 3600, "nani", (err, reply) => {
-      console.log(err);
-      console.log(reply);
-    });
-
-    redis.redisClient.get("wow", (err, reply) => {
-      console.log(err);
-      console.log(reply);
-    });
+    // redis.redisClient.setex("wow", 3600, "nani", (err, reply) => {
+    //   console.log(err);
+    //   console.log(reply);
+    // });
+    let ses = await redis.setSession(user.id, 10);
+    console.log(ses);
+    // redis.redisClient.get("wow", (err, reply) => {
+    //   console.log(err);
+    //   console.log(reply);
+    // });
 
     if (state) {
       let token = jwt.sign(
