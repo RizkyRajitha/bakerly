@@ -13,10 +13,6 @@ const specs = swaggerJsdoc(swagegrDoc);
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-const redisHost = process.env.redisHost || require("./config/env").redisHost;
-const redisPort = process.env.redisPort || require("./config/env").redisPort;
-const redisPass = process.env.redisPass || require("./config/env").redisPass;
-
 require("./redis/redis");
 
 // Sentry.init({

@@ -21,5 +21,9 @@
       }
     ]
   },
-  "apis": ["./routes/auth/signup.router.js", "./routes/auth/login.router.js"]
+  "apis": [
+    "./routes/auth/signup.router.js",
+    "./routes/auth/login.router.js",
+    "./routes/user/user.router.js"
+  ]
 }

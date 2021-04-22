@@ -21,11 +21,76 @@ router.post(
   user.purchaseCourse
 );
 router.get(
-    "/purchasedCourses",
-    roleRestrictMiddleware(["customer"]),
-    user.getPurchasedCourses
-  );
-
-
+  "/purchasedCourses",
+  roleRestrictMiddleware(["customer"]),
+  user.getPurchasedCourses
+);
 
 module.exports = router;
+
+/**
+ * @swagger
+ * /user/userdashbaord:
+ *   get:
+ *     summary: get users dashboard details.
+ *     description: get users dashboard details common to all the users.
+ *     responses:
+ *       200:
+ *         description: get users dashboard details.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 id:
+ *                   type: UUID 
+ *                 success:
+ *                   type: boolean
+ *                   description: true if the request is success.
+ *                   example: true
+ *
+ * /user/getAllUsers:
+ *   get:
+ *     summary: get all users.
+ *     description: get all users [Admin].
+ *     responses:
+ *       200:
+ *         description: get all users.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 id:
+ *                   type: UUID 
+ *                 success:
+ *                   type: boolean
+ *                   description: true if the request is success.
+ *                   example: true
+ *
+ * /user/getAllCustomers:
+ *   get:
+ *     summary: get all customers.
+ *     description: get all customers [Admin].
+ *     responses:
+ *       200:
+ *         description: get all customers.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 id:
+ *                   type: UUID 
+ *                 success:
+ *                   type: boolean
+ *                   description: true if the request is success.
+ *                   example: true
+ *
+ */
