@@ -3,6 +3,11 @@ const Course = require("../models").Course;
 const Coupon = require("../models").Coupons;
 const CouponCourseJoin = require("../models").CouponCourseJoin;
 
+/**
+ * Create a new coupon
+ * @param {Coupon} coupon
+ * @return {Promise<Coupon>}
+ */
 exports.addCoupon = (coupon) => {
   return new Promise((resolve, reject) => {
     Coupon.create({
@@ -21,6 +26,11 @@ exports.addCoupon = (coupon) => {
   });
 };
 
+/**
+ * add a course to a coupon
+ * @param {CouponCourseJoin} CourseCouponCourseJoin
+ * @return {Promise<CouponCourseJoin>}
+ */
 exports.addCoursesToCoupon = (couponcoursejoin) => {
   return new Promise((resolve, reject) => {
     CouponCourseJoin.create({
@@ -39,7 +49,11 @@ exports.addCoursesToCoupon = (couponcoursejoin) => {
       });
   });
 };
-
+/**
+ * get a coupon by courseId
+ * @param {courseId} courseId
+ * @return {Promise<couponcoursejoin>}
+ */
 exports.getCouponByCourseId = (courseId) => {
   return new Promise((resolve, reject) => {
     CouponCourseJoin.findAll({
@@ -59,6 +73,11 @@ exports.getCouponByCourseId = (courseId) => {
   });
 };
 
+/**
+ * get a coupon by ownerId
+ * @param {ownerId} ownerId
+ * @return {Promise<couponcoursejoin>}
+ */
 exports.getCouponByownerId = (ownerId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -92,6 +111,13 @@ exports.getCouponByownerId = (ownerId) => {
   });
 };
 
+/**
+ * get a coupon by ownerId and CourseId
+ * @param {ownerId} ownerId
+ * @param {CourseId} CourseId
+ * @return {Promise<couponcoursejoin>}
+ */
+
 exports.getCouponByownerIdAndCourseId = (ownerId, courseId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -124,6 +150,10 @@ exports.getCouponByownerIdAndCourseId = (ownerId, courseId) => {
   });
 };
 
+/**
+ * get all coupons 
+ * @return {Promise<couponcoursejoin>}
+ */
 exports.getAllCoupons = () => {
   return new Promise((resolve, reject) => {
     CouponCourseJoin.findAll({ include: ["coupon"] })
