@@ -45,7 +45,7 @@ module.exports = router;
  *                 name:
  *                   type: string
  *                 id:
- *                   type: UUID 
+ *                   type: UUID
  *                 success:
  *                   type: boolean
  *                   description: true if the request is success.
@@ -66,7 +66,7 @@ module.exports = router;
  *                 name:
  *                   type: string
  *                 id:
- *                   type: UUID 
+ *                   type: UUID
  *                 success:
  *                   type: boolean
  *                   description: true if the request is success.
@@ -87,7 +87,47 @@ module.exports = router;
  *                 name:
  *                   type: string
  *                 id:
- *                   type: UUID 
+ *                   type: UUID
+ *                 success:
+ *                   type: boolean
+ *                   description: true if the request is success.
+ *                   example: true
+ * /user/purchaseCourse:
+ *   post:
+ *     summary:  purchase a course.
+ *     description:  purchase a course [customer].
+ *     responses:
+ *       200:
+ *         description:  purchase a course.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 id:
+ *                   type: UUID
+ *                 success:
+ *                   type: boolean
+ *                   description: true if the request is success.
+ *                   example: true
+ * /user/purchasedCourses:
+ *   post:
+ *     summary: get all purchased courses.
+ *     description: get all purchased courses [customer].
+ *     responses:
+ *       200:
+ *         description: get all purchased courses.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 id:
+ *                   type: UUID
  *                 success:
  *                   type: boolean
  *                   description: true if the request is success.
