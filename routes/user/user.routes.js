@@ -11,20 +11,12 @@ exports.userDashbaord = async (req, res) => {
       "name",
       "id",
       "avatarUrl",
-      "createdAt",
+      "userType",
     ]);
-
-    let shop = await Shop.findShopByUserId(res.locals.id);
-
-    // let shop = await Shop.findShopByUserId(res.locals.id);
 
     console.log(user);
 
-    let payload = { user, shop };
-
-    // let payload = { user };
-
-    res.status(200).json({ success: true, data: payload });
+    res.status(200).json({ success: true, data: user });
   } catch (error) {
     console.log(error);
     if (error.code === 404) {

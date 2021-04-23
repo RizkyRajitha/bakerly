@@ -5,23 +5,32 @@ function roleRestrictMiddleware(role = []) {
     let user = await User.findUserById(res.locals.id);
 
     console.log(user);
-    let isWhiteListed = role.includes(user.userType);
-    console.log(isWhiteListed);
-    if (isWhiteListed) {
-      res.locals.userType = user.userType;
-      next();
-    } else {
-      res
-        .status(401)
-        .json({
-          success: false,
-          msg: "this route is forbidden for your user type",
-        });
-    }
 
     console.log(role);
     console.log("going through role restric ");
     console.log(res.locals.id);
+
+    let isWhiteListed = role.includes(user.userType);
+    console.log(isWhiteListed);
+
+    if (!isWhiteListed) {
+      res.status(401).json({
+        success: false,
+        msg: "this route is forbidden for your user type",
+      });
+      return;
+    }
+
+    if (!user.active) {
+      res.status(401).json({
+        success: false,
+        msg: "this user is inactive",
+      });
+      return;
+    }
+
+    res.locals.userType = user.userType;
+    next();
   };
 }
 
