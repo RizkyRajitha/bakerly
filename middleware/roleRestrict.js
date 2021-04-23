@@ -7,14 +7,14 @@ function roleRestrictMiddleware(role = []) {
     console.log(user);
 
     console.log(role);
-    console.log("going through role restric ");
+    console.log("going through role restric");
     console.log(res.locals.id);
 
     let isWhiteListed = role.includes(user.userType);
     console.log(isWhiteListed);
 
     if (!isWhiteListed) {
-      res.status(401).json({
+      res.status(403).json({
         success: false,
         msg: "this route is forbidden for your user type",
       });
@@ -22,10 +22,12 @@ function roleRestrictMiddleware(role = []) {
     }
 
     if (!user.active) {
-      res.status(401).json({
+
+      res.status(400).json({
         success: false,
         msg: "this user is inactive",
       });
+      
       return;
     }
 
